@@ -25,7 +25,6 @@
                 android:id="@+id/main_bannerlayout"
                 android:layout_width="match_parent"
                 android:layout_height="180dp">
-
             </com.voctex.banner.BannerLayout>
 
 
@@ -34,7 +33,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginTop="10dp">
-
             </com.voctex.banner.BannerLayout>
 
         </LinearLayout>
