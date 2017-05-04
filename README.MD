@@ -1,6 +1,23 @@
 # VtBanner
 实现无限轮播效果，滑动畅顺，还解决了一些嵌套的问题
 
+####安装说明：
+Gradle:
+~~~
+compile 'com.voctex.banner:banner:1.0.0'
+~~~
+
+Maven:
+~~~
+<dependency>
+  <groupId>com.voctex.banner</groupId>
+  <artifactId>banner</artifactId>
+  <version>1.0.0</version>
+  <type>pom</type>
+</dependency>
+~~~
+
+
 先看看下面的示意图：
 
 ![Image text](https://github.com/voctex/VtBanner/blob/master/gif/banners.gif?raw=true)
@@ -50,3 +67,8 @@
 ~~~
 
 暂时是以module的形式引进来的，后期会改成封装成aar上传到git远程仓库，不过现在以library的形式的话，你们也好方便改代码
+
+
+
+###v1.0.0
+首次更新

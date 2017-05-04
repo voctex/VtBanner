@@ -1,8 +1,23 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+
+
+def siteUrl = 'https://github.com/voctex/VtBanner'    // Git项目主页
+def gitUrl = 'https://github.com/voctex/VtBanner.git' // Git仓库url
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+version = "1.0.0" //发布版本号
+group = "com.voctex.banner" //最终引用形式，如compile 'com.leon.lfilepicker:1.0.0'，其中lfilepicker在后面配置
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
+    resourcePrefix "vt_" // 随意命名
 
     defaultConfig {
         minSdkVersion 14
@@ -10,7 +25,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
     buildTypes {
@@ -27,6 +42,92 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
-    testCompile 'junit:junit:4.12'
+//    testCompile 'junit:junit:4.12'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+}
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    pkg {
+        repo = 'maven'//自己创建的仓库名字
+        name = 'vtbanner'//上传到JCenter的名字,最终引用的名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ['MIT']//不能随便写，只能是仓库创建时选择的license type
+//        userOrg = 'mumusalibrary' //自己创建的organization名称
+        publish = true // 是否是公开项目，公开别人可以引用
+
+        version {
+            name = '1.0.0'
+            desc = 'voctex open library.'//描述，自己定义
+            released  = new Date()
+            vcsTag = 'v1.0.0'
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+        }
+    }
+    configurations = ['archives']
+}
+
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                name 'Android Banner'
+                description 'open library.'
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'MIT' //和之前自己定义的协议一致
+                        url 'https://raw.githubusercontent.com/minggo620/Pluto-Android/master/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'voctex'        //填写bintray或者github的用户名
+                        name 'jreproxy'         //姓名
+                        email 'voctex@aliyun.com'//邮箱
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    failOnError false //必须添加以免出错
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+javadoc {
+    options{
+        //如果你的项目里面有中文注释的话，必须将格式设置为UTF-8，不然会出现乱码
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
 }
