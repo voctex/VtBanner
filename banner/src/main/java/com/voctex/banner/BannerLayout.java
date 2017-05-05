@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//import com.yidont.cafe.R;
 
 /**
  * Created by Voctex on 2016/8/14.
@@ -64,7 +63,7 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
     /**
      * 绑定数据
      */
-    public void setEntities(List<BannerEntity> entities) {
+    public void setEntities(List<BannerEntity> entities,OnBannerImgShowListener callBack) {
         if (entities != null && entities.size() > 0) {
             mEntities.clear();
             mEntities.add(entities.get(entities.size() - 1));
@@ -72,7 +71,7 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
             mEntities.add(entities.get(0));
 
             bannerPointLayout.setPointCount(mEntities.size() - 2);
-            bannerAdapter = new BannerAdapter(getContext(), mEntities);
+            bannerAdapter = new BannerAdapter(getContext(), mEntities,callBack);
             viewPager.setAdapter(bannerAdapter);
             viewPager.addOnPageChangeListener(this);
             viewPager.setCurrentItem(1);

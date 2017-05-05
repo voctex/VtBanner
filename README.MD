@@ -3,19 +3,19 @@
 
 ####安装说明：
 Gradle:
-~~~
-compile 'com.voctex.banner:banner:1.0.0'
-~~~
+```
+compile 'com.voctex.banner:banner:1.0.1'
+```
 
 Maven:
-~~~
+```
 <dependency>
   <groupId>com.voctex.banner</groupId>
   <artifactId>banner</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <type>pom</type>
 </dependency>
-~~~
+```
 
 
 先看看下面的示意图：
@@ -23,13 +23,13 @@ Maven:
 ![Image text](https://github.com/voctex/VtBanner/blob/master/gif/banners.gif?raw=true)
 
 可直接放置在xml布局文件中
-~~~~
+```
             <com.voctex.banner.BannerLayout
                 android:id="@+id/main_bannerlayout"
                 android:layout_width="match_parent"
                 android:layout_height="180dp">
             </com.voctex.banner.BannerLayout>
-~~~~
+```
 
 有以下功能：
 
@@ -41,12 +41,14 @@ Maven:
 
 4、可改变点的位置以及颜色；
 
-5、可设置资源图片，然后显示
+5、可设置资源图片，然后显示；
+
+6、移除底层用Glide框架加载图片，可自己选择图片加载框架；
 
 
 设置数据代码如下：
 
-~~~
+```
         BannerLayout bannerLayout1 = (BannerLayout) findViewById(R.id.main_bannerlayout1);
 
         List<BannerEntity> mList1 = new ArrayList<>();
@@ -56,7 +58,7 @@ Maven:
             mList1.add(bannerEntity);
         }
 
-        bannerLayout1.setEntities(mList1);
+        bannerLayout1.setEntities(mList1,this);
         //这里设置点的颜色和位置需要设置了数据之后才能设置，因为点的数量需要数据的条数来确定
         bannerLayout1.setPointColor(Color.BLUE, Color.RED);
         bannerLayout1.setPointPotision(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
@@ -64,11 +66,17 @@ Maven:
         bannerLayout1.schedule(2000, 3000);
         //设置轮播的点击事件
         bannerLayout1.setOnBannerClickListener(this);
-~~~
+```
 
-暂时是以module的形式引进来的，后期会改成封装成aar上传到git远程仓库，不过现在以library的形式的话，你们也好方便改代码
+#### 总结
+遇到一个问题，就是底层用了我的那个javabean文件，如果调用者想用自己的javabean的话就没办法了，
+要转换成我的这个，这个暂时不解决。
 
 
 
-###v1.0.0
+
+#### v1.0.1
+移除底层用Glide加载图片框架，改为用接口回调到最上层，由调用者自己选择图片加载框架自己配置
+
+#### v1.0.0
 首次更新，后期会根据情况慢慢优化

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+//插件
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
@@ -11,8 +11,8 @@ def gitUrl = 'https://github.com/voctex/VtBanner.git' // Git仓库url
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-version = "1.0.0" //发布版本号
-group = "com.voctex.banner" //最终引用形式，如compile 'com.leon.lfilepicker:1.0.0'，其中lfilepicker在后面配置
+version = "1.0.1" //发布版本号
+group = "com.voctex.banner" //最终引用形式，如compile 'com.voctex.banner:banner:1.0.0'，其中banner在后面配置
 
 android {
     compileSdkVersion 24
@@ -25,8 +25,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -38,31 +36,27 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:24.2.1'
-//    testCompile 'junit:junit:4.12'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:24.2.1'
+
 }
 
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
     pkg {
-        repo = 'maven'//自己创建的仓库名字
+        repo = 'maven'//自己创建的仓库名字，要跟Bintray上创建的仓库一样
         name = 'vtbanner'//上传到JCenter的名字,最终引用的名字
         websiteUrl = siteUrl
-        vcsUrl = gitUrl
+        vcsUrl = gitUrl //这个好像是必须的，我尝试过传空字符串好像是不成功的
         licenses = ['MIT']//不能随便写，只能是仓库创建时选择的license type
 //        userOrg = 'mumusalibrary' //自己创建的organization名称
         publish = true // 是否是公开项目，公开别人可以引用
 
         version {
-            name = '1.0.0'
+//            name = '1.0.0'//版本名，上面好像已经有配置了
             desc = 'voctex open library.'//描述，自己定义
             released  = new Date()
-            vcsTag = 'v1.0.0'
+            vcsTag = 'v1.0.1'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
     }
@@ -77,8 +71,8 @@ install {
             project {
                 packaging 'aar'
                 // Add your description here
-                name 'Android Banner'
-                description 'open library.'
+                name 'Android Banner'//项目名
+                description 'open library.'//项目描述
                 url siteUrl
                 // Set your license
                 licenses {
@@ -89,8 +83,8 @@ install {
                 }
                 developers {
                     developer {
-                        id 'voctex'        //填写bintray或者github的用户名
-                        name 'jreproxy'         //姓名
+                        id 'voctex'        //填写bintray或者github的用户名，这里我填的是我的github名
+                        name 'jreproxy'         //姓名，这里我填的是Bintray上的昵称
                         email 'voctex@aliyun.com'//邮箱
                     }
                 }

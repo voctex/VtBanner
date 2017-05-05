@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,7 @@ public class BannerAdapter extends PagerAdapter {
     private List<ImageView> imgList = new ArrayList<>();
     private OnBannerClickListener onBannerClickListener;
 
-    public BannerAdapter(Context mContext, final List<BannerEntity> mlist) {
+    public BannerAdapter(Context mContext, final List<BannerEntity> mlist, OnBannerImgShowListener callBack) {
         imgList.clear();
         for (int i = 0; i < mlist.size(); i++) {
             BannerEntity entity = mlist.get(i);
@@ -43,22 +40,14 @@ public class BannerAdapter extends PagerAdapter {
                     }
                 }
             });
-            if (entity.getAdImg() == null) {
+            if (entity.getAdImg() == null && entity.getAdResId() != 0) {
                 img.setImageResource(entity.getAdResId());
             } else {
-//                ImgUtil.showBanner(mContext, img, mlist.get(i).getAdImg());
 
-                Glide.with(mContext)
-                        .load(entity.getAdImg())
-                        .fitCenter()
-//                        .transform(new GlideCircleTransform((Context) obj))
-                        .priority(Priority.NORMAL)
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .placeholder(R.mipmap.pic_banner_load)
-                        .error(R.mipmap.pic_banner_load)
-                        .crossFade()
-                        .into(img);
-
+                //回调到最上层，让上层模块自己选择图片加载框架加载网络图片
+                if (callBack != null) {
+                    callBack.onBannerShow(mlist.get(i).getAdImg(), img);
+                }
             }
             imgList.add(img);
         }

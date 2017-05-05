@@ -4,16 +4,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.voctex.banner.BannerEntity;
 import com.voctex.banner.BannerLayout;
 import com.voctex.banner.OnBannerClickListener;
+import com.voctex.banner.OnBannerImgShowListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnBannerClickListener {
+public class MainActivity extends AppCompatActivity implements OnBannerClickListener, OnBannerImgShowListener {
 
     private String[] imgs = {"http://i.dimg.cc/c6/83/61/ae/6d/cf/05/14/53/d0/ca/d3/b6/cc/53/a8.jpg",
             "http://cartoon.youth.cn/zxzx/201611/W020161114398226707935.jpg",
@@ -40,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnBannerClickList
             mList.add(bannerEntity);
         }
 
-        bannerLayout.setEntities(mList);
+        bannerLayout.setEntities(mList,this);
 
         //-------------------------------------------------------------------------------------------
 
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnBannerClickList
             mList1.add(bannerEntity);
         }
 
-        bannerLayout1.setEntities(mList1);
+        bannerLayout1.setEntities(mList1,this);
         //这里设置点的颜色和位置需要设置了数据之后才能设置，因为点的数量需要数据的条数来确定
         bannerLayout1.setPointColor(Color.BLUE, Color.RED);
         bannerLayout1.setPointPotision(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
@@ -62,10 +67,25 @@ public class MainActivity extends AppCompatActivity implements OnBannerClickList
         //设置轮播的点击事件
         bannerLayout1.setOnBannerClickListener(this);
 
+
     }
 
     @Override
     public void onBannerClick(int position, BannerEntity bean) {
         Toast.makeText(this, "位置是：" + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBannerShow(String url, ImageView imgView) {
+        Glide.with(this)
+                .load(url)
+                .fitCenter()
+//                        .transform(new GlideCircleTransform((Context) obj))
+                .priority(Priority.NORMAL)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.mipmap.pic_banner_load)
+                .error(R.mipmap.pic_banner_load)
+                .crossFade()
+                .into(imgView);
     }
 }
