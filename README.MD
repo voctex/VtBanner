@@ -4,7 +4,7 @@
 ####安装说明：
 Gradle:
 ```
-compile 'com.voctex.banner:banner:1.0.1'
+compile 'com.voctex.banner:banner:1.0.5'
 ```
 
 Maven:
@@ -12,7 +12,7 @@ Maven:
 <dependency>
   <groupId>com.voctex.banner</groupId>
   <artifactId>banner</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.5</version>
   <type>pom</type>
 </dependency>
 ```
@@ -73,7 +73,8 @@ Maven:
 要转换成我的这个，这个暂时不解决。
 
 
-
+#### v1.0.5
+对OnBannerImgShowListener的回调进行优化
 
 #### v1.0.1
 移除底层用Glide加载图片框架，改为用接口回调到最上层，由调用者自己选择图片加载框架自己配置

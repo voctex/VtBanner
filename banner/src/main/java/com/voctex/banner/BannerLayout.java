@@ -1,5 +1,6 @@
 package com.voctex.banner;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -9,6 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
+
+import com.voctex.banner.bean.BannerEntity;
+import com.voctex.banner.interfac.OnBannerClickListener;
+import com.voctex.banner.interfac.OnBannerImgShowListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,10 +65,16 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
 
     private List<BannerEntity> mEntities = new ArrayList<>();
 
+
     /**
      * 绑定数据
      */
     public void setEntities(List<BannerEntity> entities,OnBannerImgShowListener callBack) {
+
+        if (callBack==null){
+            throw new IllegalStateException("请实现图片加载方法");
+        }
+
         if (entities != null && entities.size() > 0) {
             mEntities.clear();
             mEntities.add(entities.get(entities.size() - 1));
@@ -127,12 +138,14 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
+    /**默认启动动画的方法*/
     public void schedule() {
         schedule(2000, 4000);
     }
 
     private boolean isFirst = false;
 
+    /**可以设置动画间隔时间的方法*/
     public void schedule(long delay, long period) {
         if (mEntities == null || mEntities.size() <= 3) {
             return;
@@ -150,6 +163,8 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
             handler.sendEmptyMessage(0);
         }
     };
+
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

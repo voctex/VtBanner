@@ -8,6 +8,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
+import com.voctex.banner.bean.BannerEntity;
+import com.voctex.banner.interfac.OnBannerClickListener;
+import com.voctex.banner.interfac.OnBannerImgShowListener;
+
 import java.util.ArrayList;
 import java.util.List;
 

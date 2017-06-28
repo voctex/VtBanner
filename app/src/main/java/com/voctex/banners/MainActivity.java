@@ -10,10 +10,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.voctex.banner.BannerEntity;
+import com.voctex.banner.bean.BannerEntity;
 import com.voctex.banner.BannerLayout;
-import com.voctex.banner.OnBannerClickListener;
-import com.voctex.banner.OnBannerImgShowListener;
+import com.voctex.banner.interfac.OnBannerClickListener;
+import com.voctex.banner.interfac.OnBannerImgShowListener;
 
 import java.util.ArrayList;
 import java.util.List;

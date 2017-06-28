@@ -1,4 +1,4 @@
-package com.voctex.banner;
+package com.voctex.banner.bean;
 
 import java.io.Serializable;
 

@@ -1,29 +1,15 @@
 apply plugin: 'com.android.library'
-//插件
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-
-
-
-def siteUrl = 'https://github.com/voctex/VtBanner'    // Git项目主页
-def gitUrl = 'https://github.com/voctex/VtBanner.git' // Git仓库url
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-version = "1.0.1" //发布版本号
-group = "com.voctex.banner" //最终引用形式，如compile 'com.voctex.banner:banner:1.0.0'，其中banner在后面配置
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
     resourcePrefix "vt_" // 随意命名
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 25
+        versionCode 2
+        versionName "1.0.1"
 
     }
     buildTypes {
@@ -36,9 +22,25 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:support-v4:25.0.0'
 
 }
+
+//--------------------------------------------------------------------------------------------------
+
+//插件
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+def siteUrl = 'https://github.com/voctex/VtBanner'    // Git项目主页
+def gitUrl = 'https://github.com/voctex/VtBanner.git' // Git仓库url
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+version = "1.0.5" //发布版本号
+group = "com.voctex.banner" //最终引用形式，如compile 'com.voctex.banner:banner:1.0.5'，其中banner在后面配置
+
 
 bintray {
     user = properties.getProperty("bintray.user")
@@ -53,10 +55,10 @@ bintray {
         publish = true // 是否是公开项目，公开别人可以引用
 
         version {
-//            name = '1.0.0'//版本名，上面好像已经有配置了
+//            name = ''//版本名，上面好像已经有配置了
             desc = 'voctex open library.'//描述，自己定义
             released  = new Date()
-            vcsTag = 'v1.0.1'
+//            vcsTag = 'v'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
     }

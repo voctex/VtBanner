@@ -5,16 +5,26 @@ android {
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.voctex.banner"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //有引用aar文件的话，需要加入这一句
+    repositories {
+        flatDir {
+            dirs 'libs/aars'
         }
     }
 }
@@ -28,4 +38,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':banner')
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
 }

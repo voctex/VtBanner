@@ -1,4 +1,4 @@
-package com.voctex.banner;
+package com.voctex.banner.interfac;
 
 import android.widget.ImageView;
 
