@@ -11,7 +11,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
-import com.voctex.banner.bean.BannerEntity;
+//import com.voctex.banners.bean.BannerEntity;
+import com.voctex.banner.interfac.IBannerEntity;
 import com.voctex.banner.interfac.OnBannerClickListener;
 import com.voctex.banner.interfac.OnBannerImgShowListener;
 
@@ -63,13 +64,13 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
 
     }
 
-    private List<BannerEntity> mEntities = new ArrayList<>();
+    private List<IBannerEntity> mEntities = new ArrayList<>();
 
 
     /**
      * 绑定数据
      */
-    public void setEntities(List<BannerEntity> entities,OnBannerImgShowListener callBack) {
+    public void setEntities(List<IBannerEntity> entities,OnBannerImgShowListener callBack) {
 
         if (callBack==null){
             throw new IllegalStateException("请实现图片加载方法");

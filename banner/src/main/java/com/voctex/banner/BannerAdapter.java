@@ -8,7 +8,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
-import com.voctex.banner.bean.BannerEntity;
+//import com.voctex.banners.bean.BannerEntity;
+import com.voctex.banner.interfac.IBannerEntity;
 import com.voctex.banner.interfac.OnBannerClickListener;
 import com.voctex.banner.interfac.OnBannerImgShowListener;
 
@@ -27,15 +28,15 @@ public class BannerAdapter extends PagerAdapter {
     private List<ImageView> imgList = new ArrayList<>();
     private OnBannerClickListener onBannerClickListener;
 
-    public BannerAdapter(Context mContext, final List<BannerEntity> mlist, OnBannerImgShowListener callBack) {
+    public BannerAdapter(Context mContext, final List<IBannerEntity> mlist, OnBannerImgShowListener callBack) {
         imgList.clear();
         for (int i = 0; i < mlist.size(); i++) {
-            BannerEntity entity = mlist.get(i);
+            IBannerEntity entity = mlist.get(i);
             final int position = i;
             ImageView img = new ImageView(mContext);
             img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            img.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            img.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT));
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -44,15 +45,15 @@ public class BannerAdapter extends PagerAdapter {
                     }
                 }
             });
-            if (entity.getAdImg() == null && entity.getAdResId() != 0) {
-                img.setImageResource(entity.getAdResId());
-            } else {
+//            if (entity.getAdImg() == null && entity.getAdResId() != 0) {
+//                img.setImageResource(entity.getAdResId());
+//            } else {
 
                 //回调到最上层，让上层模块自己选择图片加载框架加载网络图片
                 if (callBack != null) {
-                    callBack.onBannerShow(mlist.get(i).getAdImg(), img);
+                    callBack.onBannerShow(mlist.get(i).getBannerImgUrlStr(), img);
                 }
-            }
+//            }
             imgList.add(img);
         }
     }

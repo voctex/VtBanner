@@ -10,7 +10,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.voctex.banner.bean.BannerEntity;
+import com.voctex.banner.interfac.IBannerEntity;
+import com.voctex.banners.bean.BannerEntity;
 import com.voctex.banner.BannerLayout;
 import com.voctex.banner.interfac.OnBannerClickListener;
 import com.voctex.banner.interfac.OnBannerImgShowListener;
@@ -20,12 +21,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnBannerClickListener, OnBannerImgShowListener {
 
-    private String[] imgs = {"http://i.dimg.cc/c6/83/61/ae/6d/cf/05/14/53/d0/ca/d3/b6/cc/53/a8.jpg",
-            "http://cartoon.youth.cn/zxzx/201611/W020161114398226707935.jpg",
-            "http://img01.cztv.com/201611/23/4b010e8135acc3f3c4c4dd6d2854396c.jpg",
-            "http://fun.youth.cn/yl24xs/201609/W020160924508906880576.png",
-            "http://7xsbn8.com1.z0.glb.clouddn.com/1480305147.jpg",
-            "http://2t.5068.com/uploads/allimg/160406/65-1604061H216.jpg"};
+    private String[] imgs = {"http://img.zcool.cn/community/0128d7579588680000012e7e04ea1b.png",
+            "http://img.mp.sohu.com/upload/20170622/0413b0b8196c4dff992f23e776f222ea_th.png",
+            "http://img.mp.sohu.com/upload/20170608/3071b0ecd12848ee8af6189c5be0a287_th.png",
+            "http://img4.imgtn.bdimg.com/it/u=312061494,261017842&fm=26&gp=0.jpg",
+            "http://img3.imgtn.bdimg.com/it/u=3067155577,1063155389&fm=214&gp=0.jpg",
+            "http://img.mp.sohu.com/upload/20170622/d98f293dfbaa41a8bac4e4216a0af3b7_th.png",
+            "http://img.mp.sohu.com/upload/20170622/38520b8b41a94610acabf61afc573fbe_th.png"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnBannerClickList
     private void initView() {
         BannerLayout bannerLayout = (BannerLayout) findViewById(R.id.main_bannerlayout);
 
-        List<BannerEntity> mList = new ArrayList<>();
+        List<IBannerEntity> mList = new ArrayList<>();
         for (int i = 0; i < imgs.length; i++) {
             BannerEntity bannerEntity = new BannerEntity();
             bannerEntity.setAdImg(imgs[i]);
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnBannerClickList
 
         BannerLayout bannerLayout1 = (BannerLayout) findViewById(R.id.main_bannerlayout1);
 
-        List<BannerEntity> mList1 = new ArrayList<>();
+        List<IBannerEntity> mList1 = new ArrayList<>();
         for (int i = 0; i < imgs.length; i++) {
             BannerEntity bannerEntity = new BannerEntity();
             bannerEntity.setAdImg(imgs[i]);
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnBannerClickList
     }
 
     @Override
-    public void onBannerClick(int position, BannerEntity bean) {
+    public void onBannerClick(int position, IBannerEntity bean) {
         Toast.makeText(this, "位置是：" + position, Toast.LENGTH_SHORT).show();
     }
 
@@ -79,9 +81,9 @@ public class MainActivity extends AppCompatActivity implements OnBannerClickList
     public void onBannerShow(String url, ImageView imgView) {
         Glide.with(this)
                 .load(url)
-                .fitCenter()
+                .centerCrop()
 //                        .transform(new GlideCircleTransform((Context) obj))
-                .priority(Priority.NORMAL)
+                .priority(Priority.HIGH)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .placeholder(R.mipmap.pic_banner_load)
                 .error(R.mipmap.pic_banner_load)

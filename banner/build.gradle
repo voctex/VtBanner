@@ -38,7 +38,7 @@ def gitUrl = 'https://github.com/voctex/VtBanner.git' // Git仓库url
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-version = "1.0.5" //发布版本号
+version = "1.0.7" //发布版本号
 group = "com.voctex.banner" //最终引用形式，如compile 'com.voctex.banner:banner:1.0.5'，其中banner在后面配置
 
 
@@ -56,7 +56,7 @@ bintray {
 
         version {
 //            name = ''//版本名，上面好像已经有配置了
-            desc = 'voctex open library.'//描述，自己定义
+            desc = 'little fix'//描述，自己定义
             released  = new Date()
 //            vcsTag = 'v'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']

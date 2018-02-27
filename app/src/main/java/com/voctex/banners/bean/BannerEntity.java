@@ -1,11 +1,13 @@
-package com.voctex.banner.bean;
+package com.voctex.banners.bean;
+
+import com.voctex.banner.interfac.IBannerEntity;
 
 import java.io.Serializable;
 
 /**
  * Created by voctex on 20160707
  */
-public class BannerEntity implements Serializable {
+public class BannerEntity implements Serializable,IBannerEntity {
 
     private int adType;//banner的类型
     private String adImg;//图片的下载链接
@@ -53,4 +55,8 @@ public class BannerEntity implements Serializable {
         this.adUrl = adUrl;
     }
 
+    @Override
+    public String getBannerImgUrlStr() {
+        return adImg;
+    }
 }
